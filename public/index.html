@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ecstasy Video Service</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="topbar">
+    <div class="container nav-inner">
+      <div class="logo">🎬 Ecstasy Video</div>
+      <ul class="nav-links">
+        <li><a href="#" id="nav-login" class="active">Đăng nhập</a></li>
+        <li><a href="#" id="nav-upload" style="display:none;">Upload</a></li>
+        <li><a href="#" id="nav-result" style="display:none;">Kết quả</a></li>
+        <li><a href="#" id="nav-logout" style="display:none;">Đăng xuất</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <h1>Nén và quản lý video của bạn</h1>
+      <p>Nhanh, nhẹ, bảo mật. Chỉ vài cú nhấp chuột.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Login Page -->
+    <section id="page-login" class="page active">
+      <div class="card">
+        <h2>Đăng nhập</h2>
+        <form id="loginForm" class="form">
+          <label class="field">
+            <span>Email</span>
+            <input type="email" id="email" placeholder="you@example.com" required autocomplete="username" />
+          </label>
+          <label class="field">
+            <span>Mật khẩu</span>
+            <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password" />
+          </label>
+          <button class="btn primary" type="submit">Đăng nhập</button>
+        </form>
+        <div id="loginStatus" class="status"></div>
+      </div>
+    </section>
+
+    <!-- Upload Page -->
+   <!-- ...existing code... -->
+<!-- ...existing code... -->
+<section id="page-upload" class="page">
+  <div class="card">
+    <h2>Upload Video</h2>
+    <form id="uploadForm" class="form">
+      <label class="field">
+        <span>Chọn tệp video</span>
+        <input type="file" id="videoFile" accept="video/*" required />
+      </label>
+
+      <!-- Thông tin video gốc -->
+      <div id="sourceInfo" class="meta">Chưa chọn video.</div>
+      <div id="sizeWarn" class="warn" style="display:none;"></div>
+
+      <!-- Thêm kích thước: Rộng x Cao -->
+      <div class="field" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+        <label class="field">
+          <span>Rộng (px)</span>
+          <input type="number" id="width" placeholder="1280" min="144" max="7680" />
+        </label>
+        <label class="field">
+          <span>Cao (px)</span>
+          <input type="number" id="height" placeholder="720" min="144" max="4320" />
+        </label>
+      </div>
+
+      <button class="btn primary" type="submit">Gửi video</button>
+    </form>
+    <div id="uploadStatus"></div>
+    <div class="hint">Nếu bỏ trống, mặc định 1280x720. Trường file là "video".</div>
+  </div>
+</section>
+<!-- ...existing code... -->
+<!-- ...existing code... -->
+
+    <!-- Result Page -->
+    <section id="page-result" class="page">
+      <div class="card">
+        <h2>Kết quả xử lý</h2>
+        <div id="resultInfo" class="result-info"></div>
+        <video id="resultVideo" controls class="video-player" style="display:none;"></video>
+        <div class="actions">
+          <button id="backToUpload" class="btn">Upload tiếp</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">Ecstasy Video Service © 2025</div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

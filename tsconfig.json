@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",          // đổi từ ESNext -> CommonJS để dev không bị ESM lỗi đuôi file
+    "moduleResolution": "node",
+    "baseUrl": "src",
+    "paths": {
+      "@application/*": ["application/*"],
+      "@presentation/*": ["presentation/*"],
+      "@domain/*": ["domain/*"],
+      "@infrastructure/*": ["infrastructure/*"]
+    },
+    "esModuleInterop": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    "skipLibCheck": true
+  }
+}

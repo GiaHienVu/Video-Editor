@@ -1,0 +1,90 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL") // Ví dụ: mysql://user:password@localhost:3306/video_db
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Users {
+  user_id       BigInt       @id @default(autoincrement())
+  name          String?      @db.VarChar(100)
+  email         String       @unique @db.VarChar(150)
+  password_hash String       @db.VarChar(255)
+  role          Role         @default(user)
+  created_at    DateTime     @default(now())
+  updated_at    DateTime     @updatedAt
+  is_active     Boolean      @default(true)
+
+  tokens        Auth_Tokens[]
+  videos        Videos[]
+}
+
+model Auth_Tokens {
+  token_id      BigInt   @id @default(autoincrement())
+  user_id       BigInt
+  refresh_token String   @db.VarChar(255)
+  expires_at    DateTime
+  created_at    DateTime @default(now())
+
+  user          Users    @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+}
+
+model Videos {
+  video_id    BigInt    @id @default(autoincrement())
+  user_id     BigInt
+  file_name   String    @db.VarChar(255)
+  file_path   String    @db.VarChar(255)
+  file_size   BigInt
+  format      String    @db.VarChar(50)
+  status      VideoStatus
+  uploaded_at DateTime  @default(now())
+
+  user        Users             @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+  processed   Processed_Videos[]
+  jobs        Jobs[]
+}
+
+model Processed_Videos {
+  processed_id BigInt    @id @default(autoincrement())
+  video_id     BigInt
+  output_path  String    @db.VarChar(255)
+  resolution   String    @db.VarChar(50)
+  format       String    @db.VarChar(50)
+  size         BigInt
+  processed_at DateTime  @default(now())
+
+  video        Videos    @relation(fields: [video_id], references: [video_id], onDelete: Cascade)
+}
+
+model Jobs {
+  job_id     BigInt    @id @default(autoincrement())
+  video_id   BigInt
+  action     String    @db.VarChar(50)
+  params     Json
+  status     JobStatus
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+
+  video      Videos    @relation(fields: [video_id], references: [video_id], onDelete: Cascade)
+}
+
+enum Role {
+  user
+  admin
+}
+
+enum VideoStatus {
+  uploaded
+  processing
+  done
+  failed
+}
+
+enum JobStatus {
+  pending
+  running
+  succeeded
+  fail
+}

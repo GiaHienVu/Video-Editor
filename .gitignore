@@ -1,0 +1,21 @@
+# Node/TS
+node_modules/
+dist/
+build/
+coverage/
+*.log
+.DS_Store
+
+# Env/Secrets
+.env
+.env.*
+!.env.example
+
+# Upload/runtime
+uploads/
+tmp/
+*.tmp
+
+# Prisma (đừng commit DB dev)
+prisma/dev.db
+.prisma/
